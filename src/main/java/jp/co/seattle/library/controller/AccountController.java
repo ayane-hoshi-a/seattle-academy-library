@@ -58,7 +58,22 @@ public class AccountController {
 
 
         // TODO バリデーションチェック、パスワード一致チェック実装
-
+        boolean isEmailValid =email.matches("^(([0-9a-zA-Z!#$%&'*+-/=?^_`{}|~]"
+                                            + "+(.[0-9a-zA-Z!#$%&'*+-/=?^_`{}|~]+)*)|(\"[^\"]"
+                                            + "*\"))@[0-9a-zA-Z!#$%&'*+-/=?^_`{}|~]+(.[0-9a-zA-Z!"
+                                            + "#$%&'*+-/=?^_`{}|~]+)*$");
+        boolean isValidPW =password.matches("^[A-Za-z0-9]+$");
+        boolean isValidPWFC =passwordForCheck.matches("^[A-Za-z0-9]+$");
+       
+        if(!isEmailValid || !isValidPW || !isValidPWFC) {
+            model.addAttribute("errorHalf", "半角英数で入力してください。");
+            return "createAccount";
+    }
+         if(!password.equals(passwordForCheck)){
+             model.addAttribute("errorPass", "パスワードが一致していません。");
+             return "createAccount";
+     }
+        
         userInfo.setPassword(password);
         usersService.registUser(userInfo);
 

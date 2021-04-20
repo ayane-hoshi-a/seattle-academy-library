@@ -11,6 +11,7 @@ import lombok.Data;
 @Configuration
 @Data
 public class UserInfo {
+    public static final String getuserId = null;
 
     private int userId;
 

@@ -68,13 +68,18 @@ public class BooksService {
         String sql = "INSERT INTO books (title, author,publisher,thumbnail_name,thumbnail_url,reg_date,upd_date) VALUES ('"
                 + bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','"
                 + bookInfo.getThumbnailName() + "','"
-                + bookInfo.getThumbnailUrl() + "','"
+                + bookInfo.getThumbnailUrl() + "',"
                 + "sysdate(),"
                 + "sysdate())";
 
         jdbcTemplate.update(sql);
     }
 
+    /**
+     * 書籍情報を削除する
+     * 
+     * @param bookId 書籍ID
+     */
     public void deleteBook(int bookId) {
         String sql = "delete from books where id='" + bookId + "'";
         jdbcTemplate.update(sql);

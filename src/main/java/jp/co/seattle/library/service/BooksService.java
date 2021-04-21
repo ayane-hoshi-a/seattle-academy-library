@@ -65,14 +65,29 @@ public class BooksService {
      */
     public void registBook(BookDetailsInfo bookInfo) {
 
-        String sql = "INSERT INTO books (title, author,publisher,thumbnail_name,thumbnail_url,reg_date,upd_date) VALUES ('"
-                + bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','"
+        String sql = "INSERT INTO books (title, description, author,publisher,publish_date,thumbnail_name,thumbnail_url,isbn, reg_date,upd_date) VALUES ('"
+                + bookInfo.getTitle() + "','" + bookInfo.getDescription() + "','" + bookInfo.getAuthor() + "','"
+                + bookInfo.getPublisher() + "','"
+                + bookInfo.getPublishDate() + "','"
                 + bookInfo.getThumbnailName() + "','"
-                + bookInfo.getThumbnailUrl() + "',"
+                + bookInfo.getThumbnailUrl() + "','" + bookInfo.getIsbn() + "',"
                 + "sysdate(),"
                 + "sysdate())";
 
         jdbcTemplate.update(sql);
+    }
+
+    /**
+     * 書籍ID取得
+     * 
+     * @return 書籍情報
+     */
+    public int getBookId() {
+        String sql = "select max(id) from books ";
+
+        int bookId = jdbcTemplate.queryForObject(sql, Integer.class);
+
+        return bookId;
     }
 
     /**
@@ -84,4 +99,5 @@ public class BooksService {
         String sql = "delete from books where id='" + bookId + "'";
         jdbcTemplate.update(sql);
     }
+
 }

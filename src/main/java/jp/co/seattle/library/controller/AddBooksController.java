@@ -1,5 +1,6 @@
 package jp.co.seattle.library.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -40,8 +41,11 @@ public class AddBooksController {
      * 書籍情報を登録する
      * @param locale ロケール情報
      * @param title 書籍名
+     * @param description 説明文
      * @param author 著者名
      * @param publisher 出版社
+     * @param publish_date 出版日
+     * @param isbn ISBN 
      * @param file サムネイルファイル
      * @param model モデル
      * @return 遷移先画面
@@ -50,8 +54,11 @@ public class AddBooksController {
     @RequestMapping(value = "/insertBook", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
     public String insertBook(Locale locale,
             @RequestParam("title") String title,
+            @RequestParam("description") String description,
             @RequestParam("author") String author,
             @RequestParam("publisher") String publisher,
+            @RequestParam("publish_date") String publishDate,
+            @RequestParam("isbn") String isbn,
             @RequestParam("thumbnail") MultipartFile file,
             Model model) {
         logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
@@ -59,8 +66,11 @@ public class AddBooksController {
         // パラメータで受け取った書籍情報をDtoに格納する。
         BookDetailsInfo bookInfo = new BookDetailsInfo();
         bookInfo.setTitle(title);
+        bookInfo.setDescription(description);
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
+        bookInfo.setPublishDate(publishDate);
+        bookInfo.setIsbn(isbn);
 
         // クライアントのファイルシステムにある元のファイル名を設定する
         String thumbnail = file.getOriginalFilename();
@@ -84,14 +94,29 @@ public class AddBooksController {
             }
         }
 
-        // 書籍情報を新規登録する
-        booksService.registBook(bookInfo);
+        try {
+            SimpleDateFormat d1 = new SimpleDateFormat("yyyyMMdd");
+            d1.setLenient(false);
+            d1.parse(publishDate);
+        } catch (Exception e) {
+            model.addAttribute("errorDate", "出版日は半角数字のYYYYMMDD形式で入力してください");
+            return "addBook";
+        }
+    
 
-        model.addAttribute("resultMessage", "登録完了");
+    if(!(bookInfo.getIsbn().matches("([0-9]{10}|[0-9]{13})?"))) {
+        model.addAttribute("errorIsbn", "ISBNの桁数または半角数字が正しくありません");
+        return "addBook";
+    }
 
-        // TODO 登録した書籍の詳細情報を表示するように実装
+    // 書籍情報を新規登録する
+    booksService.registBook(bookInfo);
+
+    model.addAttribute("resultMessage", "登録完了");
+
+    // TODO 登録した書籍の詳細情報を表示するように実装
+    model.addAttribute("bookDetailsInfo", booksService.getBookInfo(booksService.getBookId()));
         //  詳細画面に遷移する
         return "details";
     }
-
 }

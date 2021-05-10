@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jp.co.seattle.library.dto.BookDetailsInfo;
 import jp.co.seattle.library.service.BooksService;
+import jp.co.seattle.library.service.BorrowService;
 import jp.co.seattle.library.service.ThumbnailService;
 
 //AddBooksControlを移してきた。（内容は似ているから）
@@ -32,6 +33,9 @@ public class EditBookController {
 
     @Autowired
     private ThumbnailService thumbnailService;
+
+    @Autowired
+    private BorrowService borrowService;
 
     @RequestMapping(value = "/editBook", method = RequestMethod.POST) //value＝actionで指定したパラメータ
     //RequestParamでname属性を取得
@@ -123,6 +127,18 @@ public class EditBookController {
 
     // TODO 登録した書籍の詳細情報を表示するように実装
     model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
+    //貸出ステータス表示、ボタンの変更
+    int count = borrowService.count(bookId);
+
+    if (count == 0) {
+        //借りるボタンは使える　返すボタンは使えない
+        model.addAttribute("returnDisabled", "disabled");
+        model.addAttribute("borrowStatus", "貸出可");
+    } else {
+        //借りるボタンは使えない　返すボタンは使える
+        model.addAttribute("borrowDisabled", "disabled");
+        model.addAttribute("borrowStatus", "貸出し中");
+    }
         //  詳細画面に遷移する
         return "details";
     }

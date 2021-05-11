@@ -44,20 +44,12 @@ public class BorrowController {
         logger.info("Welcome borrow! The client locale is {}.", locale);
 
         borrowService.borrowBook(bookId);
+        //借りるボタンは使えない　返すボタンは使える
+        model.addAttribute("borrowDisabled", "disabled");
+        model.addAttribute("borrowStatus", "貸出し中");
+        //削除ボタンは使えない
+        model.addAttribute("deleteDisabled", "disabled");
 
-        int count = borrowService.count(bookId);
-
-        if (count == 0) {
-            //テーブルにコードが入っていない時
-            //借りるボタンは使える　返すボタンは使えない
-            model.addAttribute("returnDisabled", "disabled");
-            model.addAttribute("borrowStatus", "貸出可");
-        } else {
-            //テーブルにコードがある時
-            //借りるボタンは使えない　返すボタンは使える
-            model.addAttribute("borrowDisabled", "disabled");
-            model.addAttribute("borrowStatus", "貸出し中");
-        }
         model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
         return "details";
 
@@ -80,18 +72,11 @@ public class BorrowController {
         logger.info("Welcome return! The client locale is {}.", locale);
 
         borrowService.returnBook(bookId);
+        //テーブルにコードが入っていない時
+        //借りるボタンは使える　返すボタンは使えない
+        model.addAttribute("returnDisabled", "disabled");
+        model.addAttribute("borrowStatus", "貸出可");
 
-        int count = borrowService.count(bookId);
-
-        if (count == 0) {
-            //借りるボタンは使える　返すボタンは使えない
-            model.addAttribute("returnDisabled", "disabled");
-            model.addAttribute("borrowStatus", "貸出可");
-        } else {
-            //借りるボタンは使えない　返すボタンは使える
-            model.addAttribute("borrowDisabled", "disabled");
-            model.addAttribute("borrowStatus", "貸出し中");
-        }
         //書籍詳細情報再取得
         model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
         return "details";

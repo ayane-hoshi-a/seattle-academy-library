@@ -53,15 +53,15 @@ public class BulkController {
             Model model) {
         logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
 
-        try {
-            //リストを作る
-            List<BookDetailsInfo> bookcsv = new ArrayList<BookDetailsInfo>();
+        //リストを作る
+        List<BookDetailsInfo> bookcsv = new ArrayList<BookDetailsInfo>();
+        //try-with-resourcesを使う
+        try (InputStream stream = file.getInputStream();
+                Reader reader = new InputStreamReader(stream);
+                BufferedReader buf = new BufferedReader(reader);) {
             String line = null;
-            InputStream stream = file.getInputStream();
-            Reader reader = new InputStreamReader(stream);
-            BufferedReader buf = new BufferedReader(reader);
             String errorMessage = "";//箱を作る
-            int rowCount= 1; //csvファイルの行の番号（何行目）
+            int rowCount = 1; //csvファイルの行の番号（何行目）
             boolean errorFlag = false;//変数に初期値としてfalseを入れる
 
             // ファイルを行単位で読む
@@ -78,11 +78,10 @@ public class BulkController {
                     errorFlag = true;
 
                 }
-                //ファイルを閉じる
-                buf.close();
-
                 //出版日のバリデーションチェック
-                if(br[3] != null);{
+                if (br[3] != null)
+                    ;
+                {
                     try {
                         SimpleDateFormat d1 = new SimpleDateFormat("yyyyMMdd");
                         d1.setLenient(false);
@@ -130,7 +129,6 @@ public class BulkController {
             //  一括登録画面に遷移する
             return "bulkBook";
 
-
         } catch (IOException e1) {
             model.addAttribute("errorMessage", "CSVファイル読み込みでエラーが発生しました。");
             return "bulkBook";
@@ -138,7 +136,6 @@ public class BulkController {
         } catch (Exception e2) {
             model.addAttribute("errorMessage", "CSVファイル読み込みでエラーが発生しました。");
             return "bulkBook";
-
 
         }
 

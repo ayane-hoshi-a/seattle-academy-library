@@ -61,7 +61,7 @@ public class BulkController {
                 BufferedReader buf = new BufferedReader(reader);) {
             String line = null;
             String errorMessage = "";//箱を作る
-            int rowCount = 1; //csvファイルの行の番号（何行目）
+            int rowCount = 0; //csvファイルの行の番号（何行目）
             boolean errorFlag = false;//変数に初期値としてfalseを入れる
 
             // ファイルを行単位で読む
@@ -69,7 +69,7 @@ public class BulkController {
             while ((line = buf.readLine()) != null) {
                 // 読み込んだ行を、「,」で分割してbrにいれる
                 String[] br = line.split(",", 6);
-
+                rowCount++;
                 //必須項目に値が入っているかチェック
                 //if文はtrueの時に括弧の中の処理がされる
                 //isEmptyは文字の長さが０の状態
@@ -112,6 +112,7 @@ public class BulkController {
                 bookInfo.setDescription(br[5]);
 
                 bookcsv.add(bookInfo);
+
             }
             //エラーがあった場合の処理
             if (errorFlag) {

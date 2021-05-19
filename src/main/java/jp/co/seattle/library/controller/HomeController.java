@@ -39,8 +39,8 @@ public class HomeController {
     /**
      * 検索機能
      * @param locale
-     * @param search 検索
-     * @param searchBox 検索Box
+     * @param search 検索書籍名
+     * @param radio ラジオボタンの情報
      * @param model
      * @return
      */
@@ -48,24 +48,26 @@ public class HomeController {
     @RequestMapping(value = "/searchBook", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
     public String SearchBook(Locale locale,
             @RequestParam("search") String searchTitle,
-            @RequestParam("searchBox") String searchBox,
+            @RequestParam("radio") String radio,
             Model model) {
 
         //検索結果の表示
-        if (searchBox.equals("part")) {
+        if (radio.equals("part")) {
             if (booksService.partSearchBookList(searchTitle).isEmpty()) {
                 model.addAttribute("errorSearch", "検索結果が一致していません。");
-            } else {
-                model.addAttribute("bookList", booksService.partSearchBookList(searchTitle));
+                return "home";
             }
-        } else if (searchBox.equals("perfect")) {
+            model.addAttribute("bookList", booksService.partSearchBookList(searchTitle));
+            return "home";
+        }
+        if (radio.equals("perfect")) {
             if (booksService.perfectSearchBook(searchTitle).isEmpty()) {
                 model.addAttribute("errorSearch", "検索結果が一致していません。");
-            } else {
-                model.addAttribute("bookList", booksService.perfectSearchBook(searchTitle));
+                return "home";
             }
+            model.addAttribute("bookList", booksService.perfectSearchBook(searchTitle));
+            return "home";
         }
-
         return "home";
     }
 }

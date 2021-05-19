@@ -29,8 +29,8 @@
         <a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a> <a href="<%=request.getContextPath()%>/bulkBook" class="btn_bulk_book">一括登録</a>
         <div class="search_box">
             <form action="<%=request.getContextPath()%>/searchBook" method="post">
-                <input type="radio" name="searchBox" value="part"><span>部分一致</span> 
-                <input type="radio" name="searchBox" value="perfect"><span>完全一致</span>
+                <input type="radio" name="radio" value="part" checked="checked"><span>部分一致</span> 
+                <input type="radio" name="radio" value="perfect"><span>完全一致</span>
                 <input name="search" type="search" class="search1" placeholder="タイトルを入力" /> <input type="submit" value="検索">
             </form>
         </div>
@@ -43,9 +43,9 @@
                     <c:forEach var="bookInfo" items="${bookList}">
                         <div class="books">
                             <form method="post" class="book_thumnail" action="<%=request.getContextPath()%>/details">
-                                <a href="javascript:void(0)" onclick="this.parentNode.submit();"> <c:if test="${empty bookInfo.thumbnail}">
+                                <a href="javascript:void(0)" onclick="this.parentNode.submit();"> <c:if test="${bookInfo.thumbnail == 'null'}">
                                         <img class="book_noimg" src="resources/img/noImg.png">
-                                    </c:if> <c:if test="${!empty bookInfo.thumbnail}">
+                                    </c:if> <c:if test="${bookInfo.thumbnail != 'null'}">
                                         <img class="book_noimg" src="${bookInfo.thumbnail}">
                                     </c:if>
                                 </a> <input type="hidden" name="bookId" value="${bookInfo.bookId}">

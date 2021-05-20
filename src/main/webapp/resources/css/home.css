@@ -126,17 +126,26 @@ img.book_noimg, img.book_img{
 }
 
 .book_title {
+	width: 200px;
+	white-space: nowrap;
+	overflow: hidden;
     font-size: 16px;
     text-align: center;
 }
 
 .book_author {
+	width: 200px;
+	white-space: nowrap;
+	overflow: hidden;
     font-size: 13px;
     text-align: center;
     margin-bottom: 5px;
 }
 
 .book_publisher, .book_publish_date {
+	width: 200px;
+	white-space: nowrap;
+	overflow: hidden;
     font-size: 12px;
 }
 
@@ -285,4 +294,3 @@ hr.border_add {
 .bulk_form .caution p{
 	color:#fa8072;
 }
-

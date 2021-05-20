@@ -51,6 +51,10 @@ public class HomeController {
             @RequestParam("radio") String radio,
             Model model) {
 
+        if (searchTitle.isEmpty()) {
+            model.addAttribute("errorSearch", "検索結果が一致していません。");
+            return "home";
+        }
         //検索結果の表示
         if (radio.equals("part")) {
             if (booksService.partSearchBookList(searchTitle).isEmpty()) {

@@ -47,12 +47,10 @@ public class DetailsController {
         if (count == 0) {
             //テーブルにコードが入っていない時
             //借りるボタンは使える　返すボタンは使えない
-            model.addAttribute("returnDisabled", "disabled");
             model.addAttribute("borrowStatus", "貸出可");
         } else {
             //テーブルにコードがある時
             //借りるボタンは使えない　返すボタンは使える
-            model.addAttribute("borrowDisabled", "disabled");
             model.addAttribute("borrowStatus", "貸出し中");
         }
         model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));

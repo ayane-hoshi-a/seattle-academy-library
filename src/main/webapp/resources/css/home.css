@@ -207,6 +207,8 @@ a:hover, button:hover {
     width: 275px;
 }
 .detail_book_content .content_right p{
+	word-wrap: break-word;
+    overflow-wrap: break-word;
     padding: 5px 0;
     width: 99.2%;
     text-indent: 1em;

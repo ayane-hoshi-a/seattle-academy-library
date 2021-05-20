@@ -54,9 +54,9 @@
                     <div class="content_left">
                         <span>書籍の画像</span> <span class="care care1">任意</span>
                         <div class="book_thumnail">
-                            <img class="book_noimg" src="resources/img/noImg.png">
+                            <img class="book_noimg" src="resources/img/noImg.png" >
                         </div>
-                        <input type="file" accept="image/*" name="thumbnail" id="thumbnail">
+                        <input type="file" accept="image/*" name="thumbnail" id="thumbnail" value="${bookInfo.fileName}">
                     </div>
                     <div class="content_right">
                         <c:if test="${!empty errorDate}">

@@ -120,4 +120,33 @@ public class BooksService {
         jdbcTemplate.update(sql);
     }
 
+    /**
+     * 検索機能
+     * 部分一致
+     * @return 書籍リスト
+     */
+    public List<BookInfo> partSearchBookList(String searchTitle) {
+
+        // TODO 取得したい情報を取得するようにSQLを修正
+        List<BookInfo> getedBookList = jdbcTemplate.query(
+                "select * from books where title like '%" + searchTitle + "%' order by title asc",
+                new BookInfoRowMapper());
+
+        return getedBookList;
+    }
+
+    /**
+     * 検索機能
+     * 完全一致
+     * @return 書籍リスト
+     */
+    public List<BookInfo> perfectSearchBook(String searchTitle) {
+
+        // TODO 取得したい情報を取得するようにSQLを修正
+        List<BookInfo> getedBookList = jdbcTemplate.query(
+                "select * from books where title like '" + searchTitle + "' order by title asc",
+                new BookInfoRowMapper());
+
+        return getedBookList;
+    }
 }

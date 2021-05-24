@@ -134,8 +134,7 @@ public class AddBooksController {
 
         // TODO 登録した書籍の詳細情報を表示するように実装
         model.addAttribute("bookDetailsInfo", booksService.getBookInfo(booksService.getBookId()));
-        //返すボタン押せない
-        model.addAttribute("returnDisabled", "disabled");
+
         model.addAttribute("borrowStatus", "貸出可");
 
         //  詳細画面に遷移する

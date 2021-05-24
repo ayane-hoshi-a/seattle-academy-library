@@ -31,6 +31,10 @@ public class HomeController {
      */
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String transitionHome(Model model) {
+        if (booksService.getBookList().size() == 0) {
+            model.addAttribute("errorList", "書籍データがありません。");
+            return "home";
+        }
 
         model.addAttribute("bookList", booksService.getBookList());
         return "home";

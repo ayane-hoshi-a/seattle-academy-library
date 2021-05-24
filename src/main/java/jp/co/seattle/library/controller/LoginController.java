@@ -52,7 +52,11 @@ public class LoginController {
             model.addAttribute("errorMessage", "パスワードとメールアドレスが一致しません。");
             return "login";
         }
-
+        //書籍のデータが０件の時
+        if (booksService.getBookList().size() == 0) {
+            model.addAttribute("errorList", "書籍データがありません。");
+            return "home";
+        }
 
         // 本の情報を取得して画面側に渡す
         model.addAttribute("bookList", booksService.getBookList());

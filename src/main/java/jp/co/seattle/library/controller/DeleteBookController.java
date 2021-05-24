@@ -41,8 +41,7 @@ public class DeleteBookController {
             @RequestParam("bookId") Integer bookId,
             Model model) {
         logger.info("Welcome delete! The client locale is {}.", locale);
-        
-        
+
         int count = borrowService.count(bookId);
         if (count == 1) {
             model.addAttribute("borrowStatus", "貸出し中");
@@ -50,8 +49,10 @@ public class DeleteBookController {
             model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
             return "details";
         }
-
         booksService.deleteBook(bookId);
+        if (booksService.getBookList().size() == 0) {
+            model.addAttribute("errorList", "書籍データがありません。");
+        }
         model.addAttribute("bookList", booksService.getBookList());
         return "home";
 

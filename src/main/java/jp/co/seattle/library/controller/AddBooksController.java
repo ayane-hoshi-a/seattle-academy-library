@@ -93,7 +93,25 @@ public class AddBooksController {
                 return "addBook";
             }
         }
+        //書籍名、著者名、出版社、説明文のバリデーションチェック
+        if (title.length() > 255) {
+            model.addAttribute("titlelength", "書籍名を255字以内で入力してください。");
+            return "addBook";
+        }
+        if (author.length() > 255) {
+            model.addAttribute("authorlength", "著者名を255字以内で入力してください。");
+            return "addBook";
+        }
+        if (publisher.length() > 255) {
+            model.addAttribute("publisherlength", "出版社を255字以内で入力してください。");
+            return "addBook";
+        }
+        if (description.length() > 255) {
+            model.addAttribute("descriptionlength", "説明文を255字以内で入力してください。");
+            return "addBook";
+        }
 
+        //出版日のバリデーションチェック
         try {
             SimpleDateFormat d1 = new SimpleDateFormat("yyyyMMdd");
             d1.setLenient(false);
@@ -102,23 +120,23 @@ public class AddBooksController {
             model.addAttribute("errorDate", "出版日は半角数字のYYYYMMDD形式で入力してください");
             return "addBook";
         }
-    
 
-    if(!(bookInfo.getIsbn().matches("([0-9]{10}|[0-9]{13})?"))) {
-        model.addAttribute("errorIsbn", "ISBNの桁数または半角数字が正しくありません");
-        return "addBook";
-    }
+        //ISBNのバリデーションチェック
+        if (!(bookInfo.getIsbn().matches("([0-9]{10}|[0-9]{13})?"))) {
+            model.addAttribute("errorIsbn", "ISBNの桁数または半角数字が正しくありません");
+            return "addBook";
+        }
 
-    // 書籍情報を新規登録する
-    booksService.registBook(bookInfo);
+        // 書籍情報を新規登録する
+        booksService.registBook(bookInfo);
 
-    model.addAttribute("resultMessage", "登録完了");
+        model.addAttribute("resultMessage", "登録完了");
 
-    // TODO 登録した書籍の詳細情報を表示するように実装
-    model.addAttribute("bookDetailsInfo", booksService.getBookInfo(booksService.getBookId()));
-    //返すボタン押せない
-    model.addAttribute("returnDisabled", "disabled");
-    model.addAttribute("borrowStatus", "貸出可");
+        // TODO 登録した書籍の詳細情報を表示するように実装
+        model.addAttribute("bookDetailsInfo", booksService.getBookInfo(booksService.getBookId()));
+        //返すボタン押せない
+        model.addAttribute("returnDisabled", "disabled");
+        model.addAttribute("borrowStatus", "貸出可");
 
         //  詳細画面に遷移する
         return "details";

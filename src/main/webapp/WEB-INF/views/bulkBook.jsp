@@ -63,7 +63,9 @@
             <c:if test="${!empty errorMessage}">
                 <div class="error">${errorMessage}</div>
             </c:if>
-           
+            <c:if test="${!empty errorMessagefile}">
+                <div class="error">${errorMessagefile}</div>
+            </c:if>
             <div class="addBookBtn_box">
                 <button type="submit" id="add-btn" class="btn_bulkRegist">登録</button>
             </div>

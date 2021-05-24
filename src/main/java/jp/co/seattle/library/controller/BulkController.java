@@ -53,6 +53,10 @@ public class BulkController {
             Model model) {
         logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
 
+        if (file.isEmpty()) {
+            model.addAttribute("errorMessagefile", "ファイルを選択してください。");
+            return "bulkBook";
+        }
         //リストを作る
         List<BookDetailsInfo> bookcsv = new ArrayList<BookDetailsInfo>();
         //try-with-resourcesを使う
@@ -61,7 +65,7 @@ public class BulkController {
                 BufferedReader buf = new BufferedReader(reader);) {
             String line = null;
             String errorMessage = "";//箱を作る
-            int rowCount = 0; //csvファイルの行の番号（何行目）
+            int rowCount = 1; //csvファイルの行の番号（何行目）
             boolean errorFlag = false;//変数に初期値としてfalseを入れる
 
             // ファイルを行単位で読む
@@ -69,7 +73,6 @@ public class BulkController {
             while ((line = buf.readLine()) != null) {
                 // 読み込んだ行を、「,」で分割してbrにいれる
                 String[] br = line.split(",", 6);
-                rowCount++;
                 //必須項目に値が入っているかチェック
                 //if文はtrueの時に括弧の中の処理がされる
                 //isEmptyは文字の長さが０の状態
@@ -78,6 +81,24 @@ public class BulkController {
                     errorFlag = true;
 
                 }
+                //書籍名、著者名、出版社、説明文のバリデーションチェック
+                    if (br[0].length() > 255) {
+                        errorMessage += rowCount + "行目の書籍名を255字以内で入力してください。";
+                        errorFlag = true;
+                    }
+                    if (br[1].length() > 255) {
+                        errorMessage += rowCount + "行目の著者名を255字以内で入力してください。";
+                        errorFlag = true;
+                    }
+                    if (br[2].length() > 255) {
+                        errorMessage += rowCount + "行目の出版社を255字以内で入力してください。";
+                        errorFlag = true;
+                    }
+                    if (br[5].length() > 255) {
+                        errorMessage += rowCount + "行目の説明文を255字以内で入力してください。";
+                        errorFlag = true;
+                    }
+
                 //出版日のバリデーションチェック
                 if (br[3] != null)
                     ;
@@ -101,7 +122,7 @@ public class BulkController {
                     errorFlag = true;//trueの時にif文は実行される。エラーが起きたことを示すためにtrueを代入する
 
                 }
-
+                rowCount++;
                 // 書籍情報をDtoに格納する。
                 BookDetailsInfo bookInfo = new BookDetailsInfo();
                 bookInfo.setTitle(br[0]);

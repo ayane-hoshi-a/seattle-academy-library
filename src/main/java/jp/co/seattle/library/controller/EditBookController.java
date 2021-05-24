@@ -39,11 +39,12 @@ public class EditBookController {
 
     @RequestMapping(value = "/editBook", method = RequestMethod.POST) //value＝actionで指定したパラメータ
     //RequestParamでname属性を取得
-    public String login(Model model,
+    public String detailsBook(Model model,
             @RequestParam("bookId") Integer bookId) {
         model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
         return "editBook";
     }
+
 
     /**
      * 書籍情報を編集する
@@ -104,7 +105,24 @@ public class EditBookController {
                 return "editBook";
             }
         }
-
+        //書籍名、著者名、出版社、説明文のバリデーションチェック
+        if (title.length() > 255) {
+            model.addAttribute("titlelength", "書籍名を255字以内で入力してください。");
+            return "editBook";
+        }
+        if (author.length() > 255) {
+            model.addAttribute("authorlength", "著者名を255字以内で入力してください。");
+            return "editBook";
+        }
+        if (publisher.length() > 255) {
+            model.addAttribute("publisherlength", "出版社を255字以内で入力してください。");
+            return "editBook";
+        }
+        if (description.length() > 255) {
+            model.addAttribute("descriptionlength", "説明文を255字以内で入力してください。");
+            return "editBook";
+        }
+        //出版日のバリデーションチェック
         try {
             SimpleDateFormat d1 = new SimpleDateFormat("yyyyMMdd");
             d1.setLenient(false);
@@ -113,32 +131,32 @@ public class EditBookController {
             model.addAttribute("errorDate", "出版日は半角数字のYYYYMMDD形式で入力してください");
             return "editBook";
         }
-    
 
-    if(!(bookInfo.getIsbn().matches("([0-9]{10}|[0-9]{13})?"))) {
-        model.addAttribute("errorIsbn", "ISBNの桁数または半角数字が正しくありません");
-        return "editBook";
-    }
+        //ISBNのバリデーションチェック
+        if (!(bookInfo.getIsbn().matches("([0-9]{10}|[0-9]{13})?"))) {
+            model.addAttribute("errorIsbn", "ISBNの桁数または半角数字が正しくありません");
+            return "editBook";
+        }
 
-    // 書籍情報を編集する
-    booksService.editBook(bookInfo);
+        // 書籍情報を編集する
+        booksService.editBook(bookInfo);
 
-    model.addAttribute("resultMessage", "登録完了");
+        model.addAttribute("resultMessage", "登録完了");
 
-    // TODO 登録した書籍の詳細情報を表示するように実装
-    model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
-    //貸出ステータス表示、ボタンの変更
-    int count = borrowService.count(bookId);
+        // TODO 登録した書籍の詳細情報を表示するように実装
+        model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
+        //貸出ステータス表示、ボタンの変更
+        int count = borrowService.count(bookId);
 
-    if (count == 0) {
-        //借りるボタンは使える　返すボタンは使えない
-        model.addAttribute("returnDisabled", "disabled");
-        model.addAttribute("borrowStatus", "貸出可");
-    } else {
-        //借りるボタンは使えない　返すボタンは使える
-        model.addAttribute("borrowDisabled", "disabled");
-        model.addAttribute("borrowStatus", "貸出し中");
-    }
+        if (count == 0) {
+            //借りるボタンは使える　返すボタンは使えない
+            model.addAttribute("returnDisabled", "disabled");
+            model.addAttribute("borrowStatus", "貸出可");
+        } else {
+            //借りるボタンは使えない　返すボタンは使える
+            model.addAttribute("borrowDisabled", "disabled");
+            model.addAttribute("borrowStatus", "貸出し中");
+        }
         //  詳細画面に遷移する
         return "details";
     }

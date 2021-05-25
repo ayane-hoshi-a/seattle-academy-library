@@ -1,5 +1,8 @@
 package jp.co.seattle.library.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.co.seattle.library.dto.BookInfo;
 import jp.co.seattle.library.dto.UserInfo;
 import jp.co.seattle.library.service.BooksService;
 import jp.co.seattle.library.service.UsersService;
@@ -52,10 +56,16 @@ public class LoginController {
             model.addAttribute("errorMessage", "パスワードとメールアドレスが一致しません。");
             return "login";
         }
-
+        //リストの取得
+        List<BookInfo> list = new ArrayList<>(booksService.getBookList());
+        //書籍のデータが０件の時
+        if (list.size() == 0) {
+            model.addAttribute("errorList", "書籍データがありません。");
+            return "home";
+        }
 
         // 本の情報を取得して画面側に渡す
-        model.addAttribute("bookList", booksService.getBookList());
+        model.addAttribute("bookList", list);
         return "home";
 
     }

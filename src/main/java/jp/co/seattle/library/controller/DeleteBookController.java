@@ -1,5 +1,7 @@
 package jp.co.seattle.library.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.co.seattle.library.dto.BookInfo;
 import jp.co.seattle.library.service.BooksService;
 import jp.co.seattle.library.service.BorrowService;
 
@@ -41,8 +44,7 @@ public class DeleteBookController {
             @RequestParam("bookId") Integer bookId,
             Model model) {
         logger.info("Welcome delete! The client locale is {}.", locale);
-        
-        
+
         int count = borrowService.count(bookId);
         if (count == 1) {
             model.addAttribute("borrowStatus", "貸出し中");
@@ -50,9 +52,13 @@ public class DeleteBookController {
             model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
             return "details";
         }
-
         booksService.deleteBook(bookId);
-        model.addAttribute("bookList", booksService.getBookList());
+
+        List<BookInfo> list = new ArrayList<>(booksService.getBookList());
+        if (list.size() == 0) {
+            model.addAttribute("errorList", "書籍データがありません。");
+        }
+        model.addAttribute("bookList", list);
         return "home";
 
     }

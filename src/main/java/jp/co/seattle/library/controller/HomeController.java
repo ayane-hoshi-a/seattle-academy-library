@@ -1,5 +1,7 @@
 package jp.co.seattle.library.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.co.seattle.library.dto.BookInfo;
 import jp.co.seattle.library.service.BooksService;
 
 /**
@@ -31,12 +34,13 @@ public class HomeController {
      */
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String transitionHome(Model model) {
-        if (booksService.getBookList().size() == 0) {
+        List<BookInfo> list = new ArrayList<>(booksService.getBookList());
+        if (list.size() == 0) {
             model.addAttribute("errorList", "書籍データがありません。");
             return "home";
         }
 
-        model.addAttribute("bookList", booksService.getBookList());
+        model.addAttribute("bookList", list);
         return "home";
     }
 

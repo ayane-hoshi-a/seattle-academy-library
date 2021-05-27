@@ -16,6 +16,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="resources/js/lightbox.js" /></script>
 <script src="resources/js/button.js" /></script>
+<script src="resources/js/delete.js" /></script>
 </head>
 <body class="wrapper">
     <header>
@@ -25,8 +26,8 @@
         </div>
         <div class="right">
             <ul>
-                <li><a href="<%= request.getContextPath()%>/home" class="menu">Home</a></li>
-                <li><a href="<%= request.getContextPath()%>/">ログアウト</a></li>
+                <li><a href="<%=request.getContextPath()%>/home" class="menu">Home</a></li>
+                <li><a href="<%=request.getContextPath()%>/">ログアウト</a></li>
             </ul>
         </div>
     </header>
@@ -36,17 +37,21 @@
             <div class="content_left">
                 <span>書籍の画像</span>
                 <div class="book_thumnail">
-                    <a href="${bookDetailsInfo.thumbnailUrl}" data-lightbox="image-1">
-                    　　 <c:if test="${bookDetailsInfo.thumbnailUrl == 'null'}">
+                    <a href="${bookDetailsInfo.thumbnailUrl}" data-lightbox="image-1"> <c:if test="${bookDetailsInfo.thumbnailUrl == 'null'}">
                             <img class="book_noimg" src="resources/img/noImg.png">
-                        </c:if>
-                        <c:if test="${bookDetailsInfo.thumbnailUrl != 'null'}">
+                        </c:if> <c:if test="${bookDetailsInfo.thumbnailUrl != 'null'}">
                             <img class="book_noimg" src="${bookDetailsInfo.thumbnailUrl}">
                         </c:if> <input type="hidden" name="bookId" value="${bookDetailsInfo.bookId}">
                     </a>
                 </div>
                 <div class="borrowStatus">
                     <p id="borrowStatus">${borrowStatus}</p>
+                   <c:if test="${!empty errorMessage}">
+                        <div class="error">${errorMessage}</div>
+                    </c:if>
+                </div>
+                <div class="delete">
+                <p>${delete}</p>
                 </div>
             </div>
             <div class="content_right">
@@ -78,10 +83,10 @@
         </div>
         <div class="edtDelBookBtn_box">
             <form method="post" action="rentBook">
-                <button id="btn_rentBook" type="submit" value="${bookDetailsInfo.bookId}" name="bookId"  class="btn_rentBook">借りる</button>
+                <button id="btn_rentBook" type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_rentBook">借りる</button>
             </form>
             <form method="post" action="returnBook">
-                <button id="btn_returnBook" type="submit" value="${bookDetailsInfo.bookId}" name="bookId"  class="btn_returnBook">返す</button>
+                <button id="btn_returnBook" type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_returnBook">返す</button>
             </form>
             <form method="post" action="editBook">
                 <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_editBook">編集</button>
@@ -90,9 +95,6 @@
                 <button id="btn_deleteBook" type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_deleteBook">削除</button>
             </form>
         </div>
-        <c:if test="${!empty errorMessage}">
-            <div class="error">${errorMessage}</div>
-        </c:if>
     </main>
 </body>
 </html>

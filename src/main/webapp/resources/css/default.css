@@ -1,278 +1,290 @@
 /* フォント設定 */
 * {
-    font-family: "Noto Sans JP";
+	font-family: "Noto Sans JP";
 }
 /* 装飾ボタン：マーカー */
 .marker {
-    position: relative;
-    padding-left: 10px;
+	position: relative;
+	padding-left: 10px;
 }
+
 .marker:before {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 0;
-    height: 0;
-    margin-top: -5px;
-    border-top: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    border-left: 5px solid #707070;
+	content: '';
+	display: inline-block;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 0;
+	height: 0;
+	margin-top: -5px;
+	border-top: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+	border-left: 5px solid #707070;
 }
 /* リンクボタン：通常 */
 a {
-    color: #707070;
-    text-decoration: none;
-    cursor: pointer;
+	color: #707070;
+	text-decoration: none;
+	cursor: pointer;
 }
 /* リンクボタン：優先 */
 a.primary {
-    color: #333399;
+	color: #333399;
 }
 /* リンクボタン：注意 */
 a.warning {
-    color: #993333;
+	color: #993333;
 }
 /* ロゴ・マーク：マーク */
 .mark {
-    width : 48px;
-    height: 48px;
-    border-style: none;
+	width: 48px;
+	height: 48px;
+	border-style: none;
 }
 /* ロゴ・マーク：ロゴ */
 .logo {
-    font-size: 110%;
-    margin:0 10px;
+	font-size: 110%;
+	margin: 0 10px;
 }
 
 /* 基本デザイン：テキストボックス系 */
-input[type=text],
-input[type=password],
-input[type=email]{
-    font-size:100%;
-    padding: 5px 0;
-    width: 99.2%;
-    text-indent: 1em;
-    outline: none;
+input[type=text], input[type=password], input[type=email] {
+	font-size: 100%;
+	padding: 5px 0;
+	width: 99.2%;
+	text-indent: 1em;
+	outline: none;
 }
 /* 基本デザイン：テキストボックス系(フォーカス時) */
-input[type=text]:focus,
-input[type=password]:focus {
-    background: #ffffcc;
+input[type=text]:focus, input[type=password]:focus {
+	background: #ffffcc;
 }
 /* 基本デザイン：コマンドボタン系 */
-input[type=submit],
-input[type=button] {
-    font-size:110%;
-    padding: 5px 0;
-    outline: none;
-    text-shadow:0px 0px 3px #707070;
-    border :solid 1px #707070;
-    border-radius: 0.2em;
-    background: linear-gradient(to bottom, #eeeeee 0%,#eeeeee 100%);
-    cursor: pointer;
+input[type=submit], input[type=button] {
+	font-size: 110%;
+	padding: 5px 0;
+	outline: none;
+	text-shadow: 0px 0px 3px #707070;
+	border: solid 1px #707070;
+	border-radius: 0.2em;
+	background: linear-gradient(to bottom, #eeeeee 0%, #eeeeee 100%);
+	cursor: pointer;
 }
 /* 基本デザイン：コマンドボタン系（メイン操作） */
-input[type=submit].primary,
-input[type=button].primary {
-    background: linear-gradient(to bottom, #f6e6b4 0%,#ed9017 100%);
+input[type=submit].primary, input[type=button].primary {
+	background: linear-gradient(to bottom, #f6e6b4 0%, #ed9017 100%);
 }
 /* 基本デザイン：ページ */
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+	background: radial-gradient(#2196F3, transparent 4px),
+		radial-gradient(#76c0fb 3px, transparent 4px),
+		linear-gradient(#fff 4px, transparent 0),
+		linear-gradient(45deg, transparent 74px, transparent 75px, #FFEB3B 75px,
+		#FFEB3B 76px, transparent 77px, transparent 109px),
+		linear-gradient(-45deg, transparent 75px, transparent 76px, #FFEB3B 76px
+		, #FFEB3B 77px, transparent 78px, transparent 109px), #fff;
+	background-size: 109px 109px, 109px 109px, 100% 6px, 109px 109px, 109px
+		109px;
+	background-position: 54px 55px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 }
 
 /* 入力フォームのパーツ：ラベル */
 .label {
-    display: block;
-    margin: 10px;
-    width: 99.2%;
-    font-weight: bold;
-    text-shadow:0px 0px 2px #707070;
+	display: block;
+	margin: 10px;
+	width: 99.2%;
+	font-weight: bold;
+	text-shadow: 0px 0px 2px #707070;
 }
 /* 入力フォームのパーツ：テキストボックス */
 .input {
-    display: block;
-    margin: 10px 0;
-    width:99.2%;
-    border :solid 1px #707070;
-    border-radius: 0.2em;
+	display: block;
+	margin: 10px 0;
+	width: 99.2%;
+	border: solid 1px #707070;
+	border-radius: 0.2em;
 }
 /* 入力フォームのパーツ：エラーメッセージ */
 .error {
-    display: block;
-    margin: 10px 0;
-    padding: 10px;
-    font-weight: bold;
-    color: #cc0000;
-    border:solid 1px #cc0000;
-    border-radius: 0.2em;
-    background: #ffeeee;
+	display: block;
+	margin: 10px 0;
+	padding: 10px;
+	font-weight: bold;
+	color: #cc0000;
+	border: solid 1px #cc0000;
+	border-radius: 0.2em;
+	background: #ffeeee;
 }
 /* 入力フォームのパーツ：ボタン */
 .button {
-    display: block;
-    margin: 10px 0;
-    font-weight: bold;
-    width:100%;
+	display: block;
+	margin: 10px 0;
+	font-weight: bold;
+	width: 100%;
 }
 
 /* 共通ヘッダー */
 header {
-    display: flex;
-    align-items: center;
-    border-bottom: solid 1px #cbcbcb;
-    padding:10px;
+	display: flex;
+	align-items: center;
+	border-bottom: solid 1px #cbcbcb;
+	padding: 10px;
 }
 
 /* 共通ヘッダー（左） */
-header > .left {
-    display:flex;
-    align-items: center;
-    justify-content: left;
+header>.left {
+	display: flex;
+	align-items: center;
+	justify-content: left;
 }
-header > .left > a {
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    color:#707070;
+
+header>.left>a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #707070;
 }
 /* 共通ヘッダー（中） */
-header > .center {
-    display:flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-basis: auto;
-    flex: 5;
+header>.center {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-basis: auto;
+	flex: 5;
 }
 /* 共通ヘッダー（中）_検索フォーム */
-header > .center > .search {
-    padding:0 10px;
-    display: block;
+header>.center>.search {
+	padding: 0 10px;
+	display: block;
 }
 /* 共通ヘッダー（中）_検索フォーム：検索条件(カテゴリー) */
-header > .center > .search > .dropdown {
-    display: inline-block;
-    border-top: solid 1px #707070;
-    border-right: none;
-    border-bottom: solid 1px #707070;
-    border-left: solid 1px #707070;
-    border-top-left-radius: 0.2em;
-    border-bottom-left-radius: 0.2em;
-    background: linear-gradient(to bottom, #eeeeee 0%,#cccccc 100%);
-    margin-left:10px;
-
+header>.center>.search>.dropdown {
+	display: inline-block;
+	border-top: solid 1px #707070;
+	border-right: none;
+	border-bottom: solid 1px #707070;
+	border-left: solid 1px #707070;
+	border-top-left-radius: 0.2em;
+	border-bottom-left-radius: 0.2em;
+	background: linear-gradient(to bottom, #eeeeee 0%, #cccccc 100%);
+	margin-left: 10px;
 }
-header > .center > .search > .dropdown > .category {
-    font-size:140%;
-    outline:none;
-    text-overflow: '';
-    border: none;
-    background: transparent;
-    vertical-align: middle;
-    appearance: button;
-    color:#707070;
+
+header>.center>.search>.dropdown>.category {
+	font-size: 140%;
+	outline: none;
+	text-overflow: '';
+	border: none;
+	background: transparent;
+	vertical-align: middle;
+	appearance: button;
+	color: #707070;
 }
 /* 共通ヘッダー（中）_検索フォーム：検索条件(キーワード) */
-header > .center > .search > .keyword {
-    border-top: solid 1px #707070;
-    border-right: none;
-    border-bottom: solid 1px #707070;
-    border-left: solid 1px #707070;
-    padding: 5px 0;
-    display: inline-block;
-    align-items: center;
-    justify-content: center;
-    font-size:110%;
-    width: 600px;
-    color:#707070;
+header>.center>.search>.keyword {
+	border-top: solid 1px #707070;
+	border-right: none;
+	border-bottom: solid 1px #707070;
+	border-left: solid 1px #707070;
+	padding: 5px 0;
+	display: inline-block;
+	align-items: center;
+	justify-content: center;
+	font-size: 110%;
+	width: 600px;
+	color: #707070;
 }
 /* 共通ヘッダー（中）_検索フォーム：検索ボタン */
-header > .center > .search > .submitter {
-    border-top: solid 1px #707070;
-    border-right: solid 1px #707070;
-    border-bottom: solid 1px #707070;
-    border-left: solid 1px #707070;
-    border-top-right-radius: 0.2em;
-    border-bottom-right-radius: 0.2em;
-    background: linear-gradient(to bottom, #f6e6b4 0%,#ed9017 100%);
-    cursor: pointer;
-    width: 16px;
-    height: 16px;
-    padding:10px;
-    display:inline-block;
-    align-items: center;
-    justify-content: center;
+header>.center>.search>.submitter {
+	border-top: solid 1px #707070;
+	border-right: solid 1px #707070;
+	border-bottom: solid 1px #707070;
+	border-left: solid 1px #707070;
+	border-top-right-radius: 0.2em;
+	border-bottom-right-radius: 0.2em;
+	background: linear-gradient(to bottom, #f6e6b4 0%, #ed9017 100%);
+	cursor: pointer;
+	width: 16px;
+	height: 16px;
+	padding: 10px;
+	display: inline-block;
+	align-items: center;
+	justify-content: center;
 }
 /* 共通ヘッダー（右） */
-header > .right {
-    display:flex;
-    margin-left: auto;
+header>.right {
+	display: flex;
+	margin-left: auto;
 }
-header > .right > ul{
-    display:flex;
+
+header>.right>ul {
+	display: flex;
 }
-header > .right > ul > li{
-    margin-right: 15px;
+
+header>.right>ul>li {
+	margin-right: 15px;
 }
 /* 共通ヘッダー（右）アンカー */
-header > .right a {
-    font-size: 90%;
-    margin: 10px;
+header>.right a {
+	font-size: 90%;
+	margin: 10px;
 }
 
 /* ページナビゲーション */
-main > .operation {
-    padding: 15px;
-    border-bottom: solid 1px #cbcbcb;
-    background: linear-gradient(to right, #3f4c6b 0%,#3f4c6b 100%);
+main>.operation {
+	padding: 15px;
+	border-bottom: solid 1px #cbcbcb;
+	background: linear-gradient(to right, #3f4c6b 0%, #3f4c6b 100%);
 }
-main > .operation > .results ,
-main > .operation > .name {
-    color:#707070;
-    color:#ffffff;
+
+main>.operation>.results, main>.operation>.name {
+	color: #707070;
+	color: #ffffff;
 }
-main > .operation > .keyword {
-    color:#ed9017;
+
+main>.operation>.keyword {
+	color: #ed9017;
 }
 /* メインコンテンツ */
 main {
-    margin: 20px;
-    /* min-height: 1024px; */
+	margin: 20px;
+	/* min-height: 1024px; */
 }
 /* コンテンツ本体 */
 main .content_body {
-    display: flex;
-    flex-wrap: wrap;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 /* 共通フッター */
 footer {
-    width: 100%;
-    padding: 20px 0;
-    border-top: solid 1px #cbcbcb;
-    margin-top: auto;
+	width: 100%;
+	padding: 20px 0;
+	border-top: solid 1px #cbcbcb;
+	margin-top: auto;
 }
-footer > .copyright {
-    color:#707070;
-    text-align: center;
-    font-size: 100%;
+
+footer>.copyright {
+	color: #707070;
+	text-align: center;
+	font-size: 100%;
 }
 
 ul {
-  list-style: none;
+	list-style: none;
 }
 
 h1 {
-  padding: 0.4em 0.5em;
-  color: #707070;
-  border-left: solid 5px #7db4e6;
+	padding: 0.4em 0.5em;
+	color: #707070;
+	border-left: solid 5px #7db4e6;
 }
+
 .error_msg {
-    color: red;
-    font-weight: bold;
+	color: red;
+	font-weight: bold;
 }

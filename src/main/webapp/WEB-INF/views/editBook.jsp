@@ -5,23 +5,15 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-  
 <meta charset="UTF-8">
-  
-<title>書籍の編集｜シアトルライブラリ｜シアトルコンサルティング株式会社</title>   
+<title>書籍の編集｜シアトルライブラリ｜シアトルコンサルティング株式会社</title>
 <link href="<c:url value="/resources/css/reset.css" />" rel="stylesheet" type="text/css">
-  
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
-  
 <link href="<c:url value="/resources/css/default.css" />" rel="stylesheet" type="text/css">
-  
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-  
 <link href="<c:url value="/resources/css/home.css" />" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  
 <script src="resources/js/thumbnail.js"></script>
-    
 <script src="resources/js/addBtn.js"></script>
 </head>
 <body class="wrapper">
@@ -54,20 +46,15 @@
                     <div class="content_left">
                         <span>書籍の画像</span> <span class="care care1">任意</span>
                         <div class="book_thumnail">
-                        <a href="${bookDetailsInfo.thumbnailUrl}" data-lightbox="image-1">
-                    　　 <c:if test="${bookDetailsInfo.thumbnailUrl == 'null'}">
-                            <img class="book_noimg" src="resources/img/noImg.png">
-                        </c:if>
-                        <c:if test="${bookDetailsInfo.thumbnailUrl != 'null'}">
-                            <img class="book_noimg" src="${bookDetailsInfo.thumbnailUrl}">
-                        </c:if> 
-                    </a>
-                       <input type="hidden" name="bookId" value="${bookDetailsInfo.bookId}"> 
-                        
-                        
-                              <!--   <img class="book_noimg" src="resources/img/noImg.png" > -->
+                            <a href="${bookDetailsInfo.thumbnailUrl}" data-lightbox="image-1"> <c:if test="${bookDetailsInfo.thumbnailUrl == 'null'}">
+                                    <img class="book_noimg" src="resources/img/noImg.png">
+                                </c:if> <c:if test="${bookDetailsInfo.thumbnailUrl != 'null'}">
+                                    <img class="book_noimg" src="${bookDetailsInfo.thumbnailUrl}">
+                                </c:if>
+                            </a> <input type="hidden" name="bookId" value="${bookDetailsInfo.bookId}">
+                            <!--   <img class="book_noimg" src="resources/img/noImg.png" > -->
                         </div>
-                       <input type="file" accept="image/*" name="thumbnail" id="thumbnail">
+                        <input type="file" accept="image/*" name="thumbnail" id="thumbnail">
                     </div>
                     <div class="content_right">
                         <c:if test="${!empty titlelength}">
@@ -146,7 +133,7 @@
                     </div>
                 </div>
                 <div class="addBookBtn_box">
-                    <button type="submit" id="add-btn" class="btn_addBook">更新</button>
+                    <button type="submit" id="add-btn" class="btn_addBook"onClick="alert('更新しました！');">更新</button>
                 </div>
             </form>
         </div>

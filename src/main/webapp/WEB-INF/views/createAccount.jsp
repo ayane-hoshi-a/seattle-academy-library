@@ -45,6 +45,9 @@
 						<c:if test="${!empty errorPass}">
 							<div class="error">${errorPass}</div>
 						</c:if>
+                        <c:if test="${!empty errorMessageEmail}">
+                            <div class="error">${errorMessageEmail}</div>
+                        </c:if>
 					</form>
 				</div>
 				<div class="authorization_navi">

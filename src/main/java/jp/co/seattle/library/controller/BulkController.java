@@ -82,22 +82,22 @@ public class BulkController {
 
                 }
                 //書籍名、著者名、出版社、説明文のバリデーションチェック
-                    if (br[0].length() > 255) {
-                        errorMessage += rowCount + "行目の書籍名を255字以内で入力してください。";
-                        errorFlag = true;
-                    }
-                    if (br[1].length() > 255) {
-                        errorMessage += rowCount + "行目の著者名を255字以内で入力してください。";
-                        errorFlag = true;
-                    }
-                    if (br[2].length() > 255) {
-                        errorMessage += rowCount + "行目の出版社を255字以内で入力してください。";
-                        errorFlag = true;
-                    }
-                    if (br[5].length() > 255) {
-                        errorMessage += rowCount + "行目の説明文を255字以内で入力してください。";
-                        errorFlag = true;
-                    }
+                if (br[0].length() > 255) {
+                    errorMessage += rowCount + "行目の書籍名を255字以内で入力してください。";
+                    errorFlag = true;
+                }
+                if (br[1].length() > 255) {
+                    errorMessage += rowCount + "行目の著者名を255字以内で入力してください。";
+                    errorFlag = true;
+                }
+                if (br[2].length() > 255) {
+                    errorMessage += rowCount + "行目の出版社を255字以内で入力してください。";
+                    errorFlag = true;
+                }
+                if (br[5].length() > 255) {
+                    errorMessage += rowCount + "行目の説明文を255字以内で入力してください。";
+                    errorFlag = true;
+                }
 
                 //出版日のバリデーションチェック
                 if (br[3] != null)
@@ -114,14 +114,14 @@ public class BulkController {
                     }
                 }
                 //ISBNのバリデーションチェック
-                if (!(br[4].isEmpty())
-                        && !(br[4].matches("([0-9]{10}|[0-9]{13})?")))
+                if (!(br[4].isEmpty()) && !(br[4].matches("[0-9]{10}|[0-9]{13})")))
                     ;
                 {
                     errorMessage += rowCount + "行目のISBNの桁数または半角数字が正しくありません"; //空だった時にエラーの処理する
                     errorFlag = true;//trueの時にif文は実行される。エラーが起きたことを示すためにtrueを代入する
 
                 }
+
                 rowCount++;
                 // 書籍情報をDtoに格納する。
                 BookDetailsInfo bookInfo = new BookDetailsInfo();
@@ -134,16 +134,17 @@ public class BulkController {
 
                 bookcsv.add(bookInfo);
 
-            }
-            //エラーがあった場合の処理
-            if (errorFlag) {
-                model.addAttribute("error", errorMessage);
-                return "bulkBook";
-            }
 
-            // 書籍情報を新規登録する、拡張for文
-            for (BookDetailsInfo book : bookcsv) {
-                booksService.registBook(book);
+                //エラーがあった場合の処理
+                if (errorFlag) {
+                    model.addAttribute("error", errorMessage);
+                    return "bulkBook";
+                }
+
+                // 書籍情報を新規登録する、拡張for文
+                for (BookDetailsInfo book : bookcsv) {
+                    booksService.registBook(book);
+                }
             }
             model.addAttribute("resultMessage", "登録完了");
 
@@ -158,8 +159,6 @@ public class BulkController {
         } catch (Exception e2) {
             model.addAttribute("errorMessage", "CSVファイル読み込みでエラーが発生しました。");
             return "bulkBook";
-
         }
-
     }
 }

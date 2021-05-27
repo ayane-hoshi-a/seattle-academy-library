@@ -29,7 +29,7 @@
         <a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a> <a href="<%=request.getContextPath()%>/bulkBook" class="btn_bulk_book">一括登録</a>
         <div class="search_box">
             <form action="<%=request.getContextPath()%>/searchBook" method="post">
-                <input type="radio" name="radio" value="part" checked="checked"><span>部分一致</span> <input type="radio" name="radio" value="perfect"><span>完全一致</span> <input name="search" type="search" class="search1" placeholder="タイトルを入力" /> <input type="submit" value="検索">
+                <input type="radio" name="radio" value="part" checked="checked"><label for="radio1">部分一致</label> <input type="radio" name="radio" value="perfect"><label for="radio2">完全一致</label> <input name="search" type="search" class="search1" placeholder="タイトルを入力" /> <input type="submit" value="検索">
             </form>
         </div>
         <div class="content_body">

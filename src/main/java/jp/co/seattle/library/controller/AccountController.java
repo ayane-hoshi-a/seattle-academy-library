@@ -73,6 +73,12 @@ public class AccountController {
              model.addAttribute("errorPass", "パスワードが一致していません。");
              return "createAccount";
      }
+     //登録済みのメールアドレスのチェック
+     if (usersService.selectUserInfo(email, password) == null) {
+         model.addAttribute("errorMessageEmail", "既にそのメールアドレスは登録済みです。");
+         return "createAccount";
+
+     }
         
         userInfo.setPassword(password);
         usersService.registUser(userInfo);

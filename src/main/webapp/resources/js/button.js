@@ -11,7 +11,7 @@ $(function(){
      if(status == "貸出し中"){
 	//借りるボタン非活性
 	//削除ボタン非活性
-	  $("#btn_rentBook").prop('disabled',true);
+      $("#btn_rentBook").prop('disabled',true);
       $("#btn_deleteBook").prop('disabled',true);
      }
 })

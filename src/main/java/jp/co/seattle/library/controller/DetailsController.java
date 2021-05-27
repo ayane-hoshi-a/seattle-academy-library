@@ -52,6 +52,7 @@ public class DetailsController {
             //テーブルにコードがある時
             //借りるボタンは使えない　返すボタンは使える
             model.addAttribute("borrowStatus", "貸出し中");
+            model.addAttribute("delete", "※貸出し中のため本の削除はできません。");
         }
         model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
         return "details";
